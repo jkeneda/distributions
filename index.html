@@ -2,37 +2,29 @@
 layout: default
 ---
 
-Playing around with Chart.js examples (stolen from their website atm)
-
 <div>
     <canvas id="myChart"></canvas>
 </div>
 
-<script src="chart.min.js"></script>
+<script src="chart.min.js"> // Chart.js
+</script>
 
+<script src="distributions.js"> // Functions for handling dice distributions
+</script> 
 
-  <script>
-const data = {
-  datasets: [{
-    label: 'My First dataset',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 20, 50],
-  }]
-};
+<script>
 
-const exampleDistribution = [1, 1, 1, 1]
+    // Create chart input data
 
+    const config = {
+        type: 'bar',
+        data: makeData(convolve(d(4), d(6)), "1d4"),
+        options: {}
+    };
 
-
-const config = {
-    type: 'line',
-    data,
-    options: {}
-  };
-  
     var myChart = new Chart(
-      document.getElementById('myChart'),
-      config
+        document.getElementById('myChart'),
+        config
     );
-  </script>
+
+</script>
