@@ -1,6 +1,6 @@
 // Implementation: work with an array dice[] such that dice[i] = # of ways of rolling an i
 
-// Functions: d(n), makeData, convolve
+// Functions: d(n), makeData, convolve 
 
 function d (n) {
     // Returns an array of size n+1 of the form [0, 1, 1, ..., 1]
