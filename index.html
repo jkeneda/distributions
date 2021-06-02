@@ -18,7 +18,7 @@ layout: default
 
     const config = {
         type: 'bar',
-        data: makeData(convolve(d(4), d(6)), "1d4 + 1d6"),
+        data: makeData(convolve(d(10), convolve(d(6), d(6))), "2d6 + 1d10"),
         options: {}
     };
 
