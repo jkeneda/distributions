@@ -84,9 +84,9 @@ Number.prototype.d = function (n) {
 };
 
 function makeData (dice, title) {
+
     // Returns data from a dice array and the graph title string
     // Makes labels equal to the list of outcomes and height given by number of ways of rolling the given outcome (or probability of such an outcome if the dice are normalized)
-
     var labels = [], data;
 
     for (var i = 0; i < dice.length; i++){
@@ -125,6 +125,8 @@ function makeChart (chartID, inputString) { // chartID is the string with html i
         config
     );
 
+    return myChart;
+
 };
 
 function makeNormalizedChart (chartID, inputString) { // chartID is the string with html id of the chart, and inputString is the user's dice combo, e.g. 3d10
@@ -146,6 +148,8 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
         config
     );
 
+    return myChart;
+
 };
 
 function normalize (dice) {
@@ -156,7 +160,7 @@ function normalize (dice) {
     for (var i = 0; i < dice.length; i++) {
         dice[i] = dice[i]/total;
     };
-
+    
     return dice;
 };
 
@@ -233,10 +237,10 @@ function textToDice (text) {
             shiftedDice[k] = 0;
 
         };
-
+        
         return shiftedDice;
 
     };
-
+    
     return dice;
 };
