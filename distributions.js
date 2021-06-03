@@ -1,8 +1,8 @@
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
-// Functions: convolve, d(n), makeData, normalize, readInput, sum
+// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalize, readInput, sum, textToDice
 
 // To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously
-// Longer-term to-do: make the graphing dynamic and parse user-input distributions
+// Longer-term to-do: make the graphing dynamic and parse user-input constants
 
 function convolve () { // Takes any number of dice as arguments
     // Returns dice array corresponding to the independent sum of all arguments
@@ -59,6 +59,10 @@ function d (n) {
         };
     };
 
+    if (dice == [0]) {
+        dice = [1]; // default to Dirac mass at 0 if loop didn't work out
+    }
+
     return dice;
 };
 
@@ -102,6 +106,48 @@ function makeData (dice, title) {
     return data;
 };
 
+function makeChart (chartID, inputString) { // chartID is the string with html id of the chart, and inputString is the user's dice combo, e.g. 3d10
+
+    const config = {
+        type: 'bar',
+        data: makeData(textToDice(inputString), inputString),
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
+                }]
+            }
+        }
+    };
+
+    var myChart = new Chart(
+        document.getElementById(chartID),
+        config
+    );
+
+};
+
+function makeNormalizedChart (chartID, inputString) { // chartID is the string with html id of the chart, and inputString is the user's dice combo, e.g. 3d10
+
+    const config = {
+        type: 'bar',
+        data: makeData(normalize(textToDice(inputString)), inputString),
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
+                }]
+            }
+        }
+    };
+
+    var myChart = new Chart(
+        document.getElementById(chartID),
+        config
+    );
+
+};
+
 function normalize (dice) {
     // Returns a dice array whose values sum to one (i.e. a probability distribution)
 
@@ -131,27 +177,68 @@ function sum (dice) {
 };
 
 function textToDice (text) {
+    // Returns a dice array corresponding to the given sum 
+    // e.g. textToDice(d4 + 1) returns [0, 0, 1, 1, 1, 1]
 
     // First split by + signs and eliminate whitespace
 
     var textArray = text.split(/\s*\+\s*/); // splits at whitespace + whitespace
     var halves = []; // for splitting e.g. 3d6 into [3, 6]
 
+    var dice = [1]; // Dirac mass at 0, to be convolved up to the full sum
+    var shift = 0; // Tracks the constant summands and performs a final shift to the dice
+    var shiftedDice = []; // Populated and returned if there's a net positive shift
+
     for (let i = 0; i < textArray.length; i++) {
 
         // Parse summands textArray[i]
 
-        if (textArray[i].match(/[0-9]*\s*d\s*[0-9]/)) { // if the word is 3d6, split and call ().d() with halves
+        if (textArray[i].match(/[0-9]*\s*d\s*[0-9]/)) { // If the word is 3d6, split and call ().d() with halves
 
             halves = textArray[i].split(/\s*d\s*/);
 
-            // still need to implement function calls based on halves
-            if (halves.length == 1) {
+            if (halves[0] === "") {
+
+                dice = convolve(dice, d(parseInt(halves[1])));
 
             };
+
+            if (typeof halves[0] !== "") {
+
+                dice = convolve(dice, (parseInt(halves[0]).d(parseInt(halves[1]))));
+
+            };
+        }
+
+        else if (!isNaN(textArray[i])) { // If it's numeric, then add it to the shift
+
+            shift = shift + parseInt(textArray[i]);
+
         };
 
     };
 
-    return 0;
+    // dice currently holds an unshifted distribution, so we finish by shifting the index in dice.  Only works for net positive shifts at the moment.
+
+    if (shift > 0) {
+
+        for (let j = 0; j < dice.length; j++) {
+
+            shiftedDice[dice.length - 1 - j + shift] = dice[dice.length - 1 - j]; // Shift to the right, starting at the end
+
+        };
+
+        for (let k = 0; k < shift; k++) {
+
+            shiftedDice[k] = 0;
+
+        };
+
+        console.log(shiftedDice);
+        
+        return shiftedDice;
+
+    };
+
+    return dice;
 };

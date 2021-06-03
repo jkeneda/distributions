@@ -14,27 +14,6 @@ layout: default
 
 <script>
 
-    // Create chart input data
-
-    const config = {
-        type: 'bar',
-        data: makeData(normalize(convolve((2).d(6), d(10))), "2d6 + 1d10"),
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
-                }]
-            }
-        }
-    };
-
-    var testString = "1 2 3";
-
-    console.log (testString.split(/\s/));
-
-    var myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    );
+    makeNormalizedChart("myChart", "2d6 + 10");
 
 </script>
