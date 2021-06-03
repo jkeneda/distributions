@@ -1,47 +1,20 @@
----
-layout: default
----
-<meta charset="UTF-8">
-
 <script>
     
-function normalize (dice) {
-    // Returns a dice array whose values sum to one (i.e. a probability distribution)
-    console.log("normalize was opened");
-    var total = sum(dice);
+    function normalize () { // normalize isn't called onclick, while another name for the function will work.
 
-    for (let i = 0; i < dice.length; i++) {
-        dice[i] = dice[i]/total;
+        return 1;
     };
-    
-    return dice;
-};
-
-function sum (dice) {
-    // Returns the sum of the values in a dice array (i.e. the total number of possible rolls of the given type, if the dice array is not normalized)
-    
-    var sum = 0;
-
-    for (let i = 0; i < dice.length; i++) {
-        sum = sum + dice[i];
-    };
-
-    return sum;
-};
 
 </script>
 
 <script>
-    console.log(normalize([3, 0, 0]));
+    console.log(normalize()); // prints 1
 </script>
 
-<div>
-    <form onsubmit="return false;">
-        <input type="button" id="refreshButton" onclick="console.log(normalize([0, 2, 0]));
-            console.log(sum([0, 2, 0]));" value="Refresh">
-    </form>
-</div>
+    
+<input type="button" onclick="console.log(normalize()); //prints undefined when clicked">
+
 
 <script>
-    console.log(normalize([0, 0, 1]));
+    console.log(normalize()); // prints 1
 </script>
