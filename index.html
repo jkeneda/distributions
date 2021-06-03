@@ -17,3 +17,10 @@ layout: default
     makeNormalizedChart("myChart", "2d6 + 10");
 
 </script>
+
+<div>
+    <form>
+        <input type="text" id="textBox" value="">
+        <input type="button" id="refreshButton" onclick="myChart.destroy(); makeNormalizedChart('myChart', '3d6 + 10');" value="Refresh">
+    </form>
+</div>

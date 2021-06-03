@@ -1,8 +1,8 @@
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
 // Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalize, readInput, sum, textToDice
 
-// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously
-// Longer-term to-do: make the graphing dynamic and parse user-input constants
+// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously,
+// make the graphing dynamic and handle negative shifts
 
 function convolve () { // Takes any number of dice as arguments
     // Returns dice array corresponding to the independent sum of all arguments
@@ -234,8 +234,6 @@ function textToDice (text) {
 
         };
 
-        console.log(shiftedDice);
-        
         return shiftedDice;
 
     };
