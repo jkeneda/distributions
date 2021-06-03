@@ -18,8 +18,14 @@ layout: default
 
     const config = {
         type: 'bar',
-        data: makeData(convolve(d(10), convolve(d(6), d(6))), "2d6 + 1d10"),
-        options: {}
+        data: makeData(convolve(d(4), d(3)), "2d6 + 1d10"),
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
+                }]
+            }
+        }
     };
 
     var myChart = new Chart(

@@ -1,24 +1,52 @@
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
 // Functions: convolve, d(n), makeData, normalize, sum
 
-function convolve(diceA, diceB){
-    // Returns dice array corresponding to diceA + diceB
+// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously
+// Longer-term to-do: make the graphing dynamic and parse user-input distributions
 
-    var dice = [];
+function convolve () { // Takes any number of dice as arguments
+    // Returns dice array corresponding to the independent sum of all arguments
 
-    // Loop over diceA and diceB to count the number of ways of getting the sum to be i+j
-    for (var i = 0; i < diceA.length; i++) {
-        for (var j = 0; j < diceB.length; j++) {
-            if (typeof dice[i+j] != 'number') {
-                dice[i+j] = 0;
+    var diceA = arguments[0]; // A
+    var diceB = arguments[1];  // B
+    var dice = [];  // to become A+B
+
+    if (arguments.length > 2) {
+        for (let k = 0; k < arguments.length; k++) {
+
+            if (dice == []) {
+                dice = [1];
             };
 
-            dice[i+j] = dice[i+j] + diceA[i]*diceB[j]; // Add the number of ways of getting i + j via diceA showing i and diceB showing j
-            
-            // for debugging:
-            // console.log("dice["+ i + "+" + j + "] is now " + dice[i+j]);
+            dice = convolve(dice, arguments[k]); // convolve identity with arguments one by one
         };
+
+        console.log ("length at least 3 call");
     };
+
+    if (arguments.length == 2) {
+        // Loop over diceA and diceB to count the number of ways of getting the sum to be i+j
+        for (let i = 0; i < diceA.length; i++) {
+            for (let j = 0; j < diceB.length; j++) {
+                if (typeof dice[i + j] != 'number') {
+                    dice[i + j] = 0;
+                };
+
+                dice[i + j] = dice[i + j] + diceA[i] * diceB[j]; // Add the number of ways of getting i + j via diceA showing i and diceB showing j
+
+                // for debugging:
+                console.log("dice["+ i + "+" + j + "] is now " + dice[i+j]);
+            };
+        };
+
+        console.log ("length 2 call");
+    };
+
+    if (arguments.length == 1) {
+        console.log ("length 1 call");
+        
+        return diceA; // nothing to convolve with
+    }
 
     return dice;
 };
