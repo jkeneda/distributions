@@ -3,30 +3,45 @@ layout: default
 ---
 <meta charset="UTF-8">
 
-<div>
-    <canvas id="myChart"></canvas>
-</div>
+<script>
+    
+function normalize (dice) {
+    // Returns a dice array whose values sum to one (i.e. a probability distribution)
+    console.log("normalize was opened");
+    var total = sum(dice);
 
-<script src="chart.min.js"> // Chart.js
+    for (let i = 0; i < dice.length; i++) {
+        dice[i] = dice[i]/total;
+    };
+    
+    return dice;
+};
+
+function sum (dice) {
+    // Returns the sum of the values in a dice array (i.e. the total number of possible rolls of the given type, if the dice array is not normalized)
+    
+    var sum = 0;
+
+    for (let i = 0; i < dice.length; i++) {
+        sum = sum + dice[i];
+    };
+
+    return sum;
+};
+
 </script>
 
-<script src="distributions.js"> // Functions for handling dice distributions
-</script> 
+<script>
+    console.log(normalize([3, 0, 0]));
+</script>
 
 <div>
     <form onsubmit="return false;">
-        <input type="text" id="textBox" value="3d4 + 4">
-        <input type="button" id="refreshButton" onclick="myChart.data = makeData(textToDice(document.getElementById('textBox').value), document.getElementById('textBox').value);
-            myChart.update();
-            console.log(normalize([1, 2, 3]));" value="Refresh">
+        <input type="button" id="refreshButton" onclick="console.log(normalize([0, 2, 0]));
+            console.log(sum([0, 2, 0]));" value="Refresh">
     </form>
 </div>
 
 <script>
-    // Issues still.  Weirdness with the onclick caller.  normalize seems to work elsewhere but not there.
-
-    var myChart = makeNormalizedChart("myChart", document.getElementById('textBox').value);
-
-    console.log(normalize([1, 1, 1]));
-
+    console.log(normalize([0, 0, 1]));
 </script>
