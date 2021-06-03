@@ -1,5 +1,5 @@
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
-// Functions: convolve, d(n), makeData, normalize, sum
+// Functions: convolve, d(n), makeData, normalize, readInput, sum
 
 // To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously
 // Longer-term to-do: make the graphing dynamic and parse user-input distributions
@@ -12,16 +12,16 @@ function convolve () { // Takes any number of dice as arguments
     var dice = [];  // to become A+B
 
     if (arguments.length > 2) {
+
         for (let k = 0; k < arguments.length; k++) {
 
-            if (dice == []) {
+            if (dice.length == 0) {
                 dice = [1];
             };
 
             dice = convolve(dice, arguments[k]); // convolve identity with arguments one by one
-        };
 
-        console.log ("length at least 3 call");
+        };
     };
 
     if (arguments.length == 2) {
@@ -35,15 +35,12 @@ function convolve () { // Takes any number of dice as arguments
                 dice[i + j] = dice[i + j] + diceA[i] * diceB[j]; // Add the number of ways of getting i + j via diceA showing i and diceB showing j
 
                 // for debugging:
-                console.log("dice["+ i + "+" + j + "] is now " + dice[i+j]);
+                // console.log("dice["+ i + "+" + j + "] is now " + dice[i+j]);
             };
         };
-
-        console.log ("length 2 call");
     };
 
     if (arguments.length == 1) {
-        console.log ("length 1 call");
         
         return diceA; // nothing to convolve with
     }
@@ -59,6 +56,23 @@ function d (n) {
     if (n>0) {
         for (var i = 1; i <= n; i++) {
             dice[i] = 1;
+        };
+    };
+
+    return dice;
+};
+
+// Idea: add d to Number.prototype so that 3.d(6) is 3d6, etc.
+
+Number.prototype.d = function (n) {
+
+    var dice = [1];
+
+    if (this > 0) {
+        for (let i = 0; i < this; i++){
+
+            dice = convolve(dice, d(n));
+
         };
     };
 
@@ -100,6 +114,10 @@ function normalize (dice) {
     return dice;
 };
 
+function readInput () {
+    // Needs implementation
+};
+
 function sum (dice) {
     // Returns the sum of the values in a dice array (i.e. the total number of possible rolls of the given type, if the dice array is not normalized)
     
@@ -110,4 +128,30 @@ function sum (dice) {
     };
 
     return sum;
+};
+
+function textToDice (text) {
+
+    // First split by + signs and eliminate whitespace
+
+    var textArray = text.split(/\s*\+\s*/); // splits at whitespace + whitespace
+    var halves = []; // for splitting e.g. 3d6 into [3, 6]
+
+    for (let i = 0; i < textArray.length; i++) {
+
+        // Parse summands textArray[i]
+
+        if (textArray[i].match(/[0-9]*\s*d\s*[0-9]/)) { // if the word is 3d6, split and call ().d() with halves
+
+            halves = textArray[i].split(/\s*d\s*/);
+
+            // still need to implement function calls based on halves
+            if (halves.length == 1) {
+
+            };
+        };
+
+    };
+
+    return 0;
 };
