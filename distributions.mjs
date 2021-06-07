@@ -4,7 +4,7 @@
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
 // Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, sum, textToDice
 
-// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, labels and module behavior
+// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, labels (not showing up) and module behavior
 // make the graphing dynamic and handle negative shifts
 
 function convolve () { // Takes any number of dice as arguments
@@ -140,7 +140,23 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
         options: {
             scales: {
                 xAxes: [{
+                    display: true,
+
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Result of Roll'
+                    },
+
                     type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
+                }],
+
+                yAxes: [{
+                    display: true,
+
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Probability of Getting That Roll'
+                    }
                 }]
             }
         }

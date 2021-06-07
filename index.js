@@ -1,3 +1,5 @@
+// Must load Chart.js and distributions.mjs before this will work
+
 var myChart = makeNormalizedChart('myChart', document.getElementById('textBox').value); // Initialize chart
 
 // Refresh event handling
