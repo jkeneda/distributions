@@ -7,19 +7,18 @@ layout: default
     <canvas id="myChart"></canvas>
 </div>
 
+<div>
+    <form onsubmit="return false;">
+        <input type="text" id="textBox" value="3d4 + 4">
+        <input type="button" id="refreshButton" value="Refresh">
+    </form>
+</div>
+
 <script src="chart.min.js"> // Chart.js
 </script>
 
 <script src="distributions.js"> // Functions for handling dice distributions
 </script> 
-
-<div>
-    <form onsubmit="return false;">
-        <input type="text" id="textBox" value="3d4 + 4">
-        <input type="button" id="refreshButton" onclick="myChart.data = makeData(normalizeDice(textToDice(document.getElementById('textBox').value), document.getElementById('textBox').value));
-            myChart.update();" value="Refresh">
-    </form>
-</div>
 
 <script>
 
