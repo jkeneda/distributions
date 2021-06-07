@@ -1,7 +1,10 @@
-// Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
-// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalize, readInput, sum, textToDice
+// Requires chart.js
+import Chart from './chart.min.js';
 
-// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously,
+// Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
+// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, readInput, sum, textToDice
+
+// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, event handling
 // make the graphing dynamic and handle negative shifts
 
 function convolve () { // Takes any number of dice as arguments
@@ -46,7 +49,7 @@ function convolve () { // Takes any number of dice as arguments
     }
 
     return dice;
-};
+}
 
 function d (n) {
     // Returns an array of size n+1 of the form [0, 1, 1, ..., 1]
@@ -64,7 +67,7 @@ function d (n) {
     }
 
     return dice;
-};
+}
 
 // Idea: add d to Number.prototype so that 3.d(6) is 3d6, etc.
 
@@ -81,7 +84,7 @@ Number.prototype.d = function (n) {
     };
 
     return dice;
-};
+}
 
 function makeData (dice, title) {
 
@@ -104,7 +107,7 @@ function makeData (dice, title) {
     };
 
     return data;
-};
+}
 
 function makeChart (chartID, inputString) { // chartID is the string with html id of the chart, and inputString is the user's dice combo, e.g. 3d10
 
@@ -127,7 +130,7 @@ function makeChart (chartID, inputString) { // chartID is the string with html i
 
     return myChart;
 
-};
+}
 
 function makeNormalizedChart (chartID, inputString) { // chartID is the string with html id of the chart, and inputString is the user's dice combo, e.g. 3d10
 
@@ -150,7 +153,7 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
 
     return myChart;
 
-};
+}
 
 function normalizeDice (dice) {
     // Returns a dice array whose values sum to one (i.e. a probability distribution)
@@ -162,7 +165,11 @@ function normalizeDice (dice) {
     };
     
     return dice;
-};
+}
+
+function readInput () {
+    // Needs implementation
+}
 
 function readInput () {
     // Needs implementation
@@ -178,7 +185,7 @@ function sum (dice) {
     };
 
     return sum;
-};
+}
 
 function textToDice (text) {
     // Returns a dice array corresponding to the given sum 
@@ -243,4 +250,4 @@ function textToDice (text) {
     };
     
     return dice;
-};
+}
