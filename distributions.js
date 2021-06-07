@@ -154,14 +154,18 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
 
 function normalizeDice (dice) {
     // Returns a dice array whose values sum to one (i.e. a probability distribution)
-    
+
     var total = sum(dice);
 
-    for (let i = 0; i < dice.length; i++) {
+    for (var i = 0; i < dice.length; i++) {
         dice[i] = dice[i]/total;
     };
     
     return dice;
+};
+
+function readInput () {
+    // Needs implementation
 };
 
 function sum (dice) {
@@ -169,9 +173,74 @@ function sum (dice) {
     
     var sum = 0;
 
-    for (let i = 0; i < dice.length; i++) {
+    for (var i = 0; i < dice.length; i++) {
         sum = sum + dice[i];
     };
 
     return sum;
+};
+
+function textToDice (text) {
+    // Returns a dice array corresponding to the given sum 
+    // e.g. textToDice(d4 + 1) returns [0, 0, 1, 1, 1, 1]
+
+    // First split by + signs and eliminate whitespace
+
+    var textArray = text.split(/\s*\+\s*/); // splits at whitespace + whitespace
+    var halves = []; // for splitting e.g. 3d6 into [3, 6]
+
+    var dice = [1]; // Dirac mass at 0, to be convolved up to the full sum
+    var shift = 0; // Tracks the constant summands and performs a final shift to the dice
+    var shiftedDice = []; // Populated and returned if there's a net positive shift
+
+    for (let i = 0; i < textArray.length; i++) {
+
+        // Parse summands textArray[i]
+
+        if (textArray[i].match(/[0-9]*\s*d\s*[0-9]/)) { // If the word is 3d6, split and call ().d() with halves
+
+            halves = textArray[i].split(/\s*d\s*/);
+
+            if (halves[0] === "") {
+
+                dice = convolve(dice, d(parseInt(halves[1])));
+
+            };
+
+            if (typeof halves[0] !== "") {
+
+                dice = convolve(dice, (parseInt(halves[0]).d(parseInt(halves[1]))));
+
+            };
+        }
+
+        else if (!isNaN(textArray[i])) { // If it's numeric, then add it to the shift
+
+            shift = shift + parseInt(textArray[i]);
+
+        };
+
+    };
+
+    // dice currently holds an unshifted distribution, so we finish by shifting the index in dice.  Only works for net positive shifts at the moment.
+
+    if (shift > 0) {
+
+        for (let j = 0; j < dice.length; j++) {
+
+            shiftedDice[dice.length - 1 - j + shift] = dice[dice.length - 1 - j]; // Shift to the right, starting at the end
+
+        };
+
+        for (let k = 0; k < shift; k++) {
+
+            shiftedDice[k] = 0;
+
+        };
+        
+        return shiftedDice;
+
+    };
+    
+    return dice;
 };
