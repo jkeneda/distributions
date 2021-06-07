@@ -8,7 +8,7 @@ layout: default
 </div>
 
 <div>
-    <form onsubmit="return false;">
+    <form id="form1" onsubmit="return false;">
         <input type="text" id="textBox" value="3d4 + 4">
         <input type="button" id="refreshButton" value="Refresh">
     </form>
@@ -18,10 +18,7 @@ layout: default
 </script>
 
 <script src="distributions.js"> // Functions for handling dice distributions
-</script> 
+</script>
 
-<script>
-
-    var myChart = makeNormalizedChart("myChart", document.getElementById('textBox').value);
-
+<script src="index.js">// Creates chart and handles events
 </script>

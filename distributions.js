@@ -1,4 +1,5 @@
 // Requires chart.js
+// import Chart from './chart.min.js'; (need to figure out good module behavior later)
 
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
 // Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, readInput, sum, textToDice
@@ -246,15 +247,3 @@ function textToDice (text) {
     
     return dice;
 }
-
-// Below is the stuff that integrates with the html document
-// To-do: move to separate file
-
-const refreshButton = document.getElementById('refreshButton');
-
-function updateChart (myChart) {
-    myChart.data = makeData(normalizeDice(textToDice(document.getElementById('textBox').value)), document.getElementById('textBox').value);
-    myChart.update();
-}
-
-refreshButton.addEventListener('click', function () {updateChart(myChart)});
