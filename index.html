@@ -1,20 +1,28 @@
-<script>
-    
-    function normalize () { // normalize isn't called onclick, while another name for the function will work.
+---
+layout: default
+---
+<meta charset="UTF-8">
 
-        return 1;
-    };
+<div>
+    <canvas id="myChart"></canvas>
+</div>
 
+<script src="chart.min.js"> // Chart.js
 </script>
 
+<script src="distributions.js"> // Functions for handling dice distributions
+</script> 
+
+<div>
+    <form onsubmit="return false;">
+        <input type="text" id="textBox" value="3d4 + 4">
+        <input type="button" id="refreshButton" onclick="myChart.data = makeData(normalizeDice(textToDice(document.getElementById('textBox').value), document.getElementById('textBox').value));
+            myChart.update();" value="Refresh">
+    </form>
+</div>
+
 <script>
-    console.log(normalize()); // prints 1
-</script>
 
-    
-<input type="button" onclick="console.log(normalize()); //prints undefined when clicked">
+    var myChart = makeNormalizedChart("myChart", document.getElementById('textBox').value);
 
-
-<script>
-    console.log(normalize()); // prints 1
 </script>
