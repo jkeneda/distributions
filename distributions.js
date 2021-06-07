@@ -133,7 +133,7 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
 
     const config = {
         type: 'bar',
-        data: makeData(normalize(textToDice(inputString)), inputString),
+        data: makeData(normalizeDice(textToDice(inputString)), inputString),
         options: {
             scales: {
                 xAxes: [{
@@ -152,7 +152,7 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
 
 };
 
-function normalize (dice) {
+function normalizeDice (dice) {
     // Returns a dice array whose values sum to one (i.e. a probability distribution)
 
     var total = sum(dice);
