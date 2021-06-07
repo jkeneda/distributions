@@ -2,9 +2,9 @@
 // import Chart from './chart.min.js';, add type="module" to the script tags?  Not sure yet.
 
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
-// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, readInput, sum, textToDice
+// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, sum, textToDice
 
-// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, event handling
+// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, labels and module behavior
 // make the graphing dynamic and handle negative shifts
 
 function convolve () { // Takes any number of dice as arguments
@@ -166,14 +166,6 @@ function normalizeDice (dice) {
     
     return dice;
 }
-
-function readInput () {
-    // Needs implementation
-}
-
-function readInput () {
-    // Needs implementation
-};
 
 function sum (dice) {
     // Returns the sum of the values in a dice array (i.e. the total number of possible rolls of the given type, if the dice array is not normalized)
