@@ -16,9 +16,8 @@ layout: default
 <div>
     <form onsubmit="return false;">
         <input type="text" id="textBox" value="3d4 + 4">
-        <input type="button" id="refreshButton" onclick="myChart.data = makeData(textToDice(document.getElementById('textBox').value), document.getElementById('textBox').value);
-            myChart.update();
-            console.log(normalize([1, 2, 3]));" value="Refresh">
+        <input type="button" id="refreshButton" onclick="myChart.data = makeData(normalizeDice(textToDice(document.getElementById('textBox').value), document.getElementById('textBox').value));
+            myChart.update();" value="Refresh">
     </form>
 </div>
 
@@ -26,7 +25,5 @@ layout: default
     // Issues still.  Weirdness with the onclick caller.  normalize seems to work elsewhere but not there.
 
     var myChart = makeNormalizedChart("myChart", document.getElementById('textBox').value);
-
-    console.log(normalize([1, 1, 1]));
 
 </script>
