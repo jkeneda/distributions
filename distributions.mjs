@@ -1,5 +1,5 @@
 // Requires chart.js
-// import Chart from './chart.min.js'; (need to figure out good module behavior later)
+//import Chart from './chart.min.js';
 
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
 // Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, readInput, sum, textToDice
