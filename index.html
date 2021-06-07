@@ -7,23 +7,18 @@ layout: default
     <canvas id="myChart"></canvas>
 </div>
 
-<script src="chart.min.js"> // Chart.js
-</script>
-
-<script src="distributions.js"> // Functions for handling dice distributions
-</script> 
-
 <div>
-    <form onsubmit="return false;">
+    <form id="form1" onsubmit="return false;">
         <input type="text" id="textBox" value="3d4 + 4">
-        <input type="button" id="refreshButton" onclick="myChart.data = makeData(normalizeDice(textToDice(document.getElementById('textBox').value), document.getElementById('textBox').value));
-            myChart.update();" value="Refresh">
+        <input type="button" id="refreshButton" value="Refresh">
     </form>
 </div>
 
-<script>
-    // Issues still.  Weirdness with the onclick caller.  normalize seems to work elsewhere but not there.
+<script src="chart.min.js"> // Chart.js
+</script>
 
-    var myChart = makeNormalizedChart("myChart", document.getElementById('textBox').value);
+<script type="module" src="distributions.mjs"> // Functions for handling dice distributions
+</script>
 
+<script src="index.js">// Creates chart and handles events
 </script>

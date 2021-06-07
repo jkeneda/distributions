@@ -1,0 +1,13 @@
+var myChart = makeNormalizedChart('myChart', document.getElementById('textBox').value); // Initialize chart
+
+// Refresh event handling
+const refreshButton = document.getElementById('refreshButton');
+function updateChart (myChart) {
+    myChart.data = makeData(normalizeDice(textToDice(document.getElementById('textBox').value)), document.getElementById('textBox').value);
+    myChart.update();
+}
+refreshButton.addEventListener('click', function () {updateChart(myChart);});
+
+// Form submission event handling
+const form1 = document.getElementById('form1');
+form1.addEventListener('submit', function () {updateChart(myChart);});
