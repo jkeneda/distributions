@@ -138,26 +138,49 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
         type: 'bar',
         data: makeData(normalizeDice(textToDice(inputString)), inputString),
         options: {
-            scales: {
-                xAxes: [{
-                    display: true,
+            plugins: {
+                tooltip: {
+                    // enabled: false
 
-                    scaleLabel: {
+                    callbacks: {
+                        afterTitle: function (context) {
+                            return "is";
+                        },
+                        beforeTitle: function (context) {
+                            return "The probability of rolling a";
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    display: true,
+                    
+                    // min: 1;
+
+                    title: { // something's wrong with my syntax here
                         display: true,
-                        labelString: 'Result of Roll'
+                        text: 'Roll'
                     },
 
-                    type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
-                }],
+                    // type: 'linear', // Hopefully lets me display averages better? Not sure if this works yet.
+                },
 
-                yAxes: [{
+                y: {
                     display: true,
 
-                    scaleLabel: {
+                    ticks: {
+                        // Convert y-axis to percentages instead of decimal
+                        callback: function (value, index, ticks) {
+                            return (100*value).toFixed(0) + ' %';
+                        }
+                    },
+
+                    title: {
                         display: true,
-                        labelString: 'Probability of Getting That Roll'
+                        text: 'Probability'
                     }
-                }]
+                }
             }
         }
     };
