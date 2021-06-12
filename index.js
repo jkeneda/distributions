@@ -10,6 +10,12 @@ function updateChart (myChart) {
 }
 refreshButton.addEventListener('click', function () {updateChart(myChart);});
 
+// Sample event handling
+const sampleButton = document.getElementById('sampleButton');
+sampleButton.addEventListener('click', function () {
+    updateChart(myChart);
+    document.getElementById('log').innerHTML = "You rolled a " + sample(textToDice(document.getElementById('textBox').value));});
+
 // Form submission event handling
 const form1 = document.getElementById('form1');
 form1.addEventListener('submit', function () {updateChart(myChart);});

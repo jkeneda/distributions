@@ -10,8 +10,14 @@ layout: default
 <div>
     <form id="form1" onsubmit="return false;">
         <input type="text" id="textBox" value="3d4 + 4">
-        <input type="button" id="refreshButton" value="Refresh">
+        <input type="button" id="refreshButton" value="Refresh Distribution">
+        <input type="button" id="sampleButton" value="Roll">
     </form>
+</div>
+<div>
+    <p id="log">
+        Click the refresh button to display the given distribution.  Click the roll button to sample from the distribution.  Your roll will be displayed here.
+    </p>
 </div>
 
 <script src="chart.js">

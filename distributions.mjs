@@ -2,10 +2,11 @@
 // import Chart from './chart.min.js';, add type="module" to the script tags?  Not sure yet.
 
 // Implementation: works with an array dice[] such that dice[i] = # of ways of rolling an i with the given dice
-// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, sum, textToDice
+// Functions: convolve, d(n) (also its Number.prototype version), makeData, makeChart, makeNormalizedChart, normalizeDice, sample, sum, textToDice
 
-// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, labels (not showing up) and module behavior
+// To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, and module behavior
 // make the graphing dynamic and handle negative shifts
+// improve on-hover labels and sampliing
 
 function convolve () { // Takes any number of dice as arguments
     // Returns dice array corresponding to the independent sum of all arguments
@@ -143,12 +144,19 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
                     // enabled: false
 
                     callbacks: {
+                        /* This block works, but there are line breaks between each.
                         afterTitle: function (context) {
                             return "is";
                         },
+
                         beforeTitle: function (context) {
                             return "The probability of rolling a";
-                        }
+                        },
+                        */
+                        
+                       label: function (tooltipItem) { return tooltipItem.dataset.label + ' rolls a ' + tooltipItem.label + ' with probability near ' + (100*(tooltipItem.formattedValue)).toFixed(0) + '%'; }, // this is the 3d6 : 1% part
+
+                       // title: function () { return "lol"; } // this is the e.g. 5 part
                     }
                 }
             },
@@ -158,7 +166,7 @@ function makeNormalizedChart (chartID, inputString) { // chartID is the string w
                     
                     // min: 1;
 
-                    title: { // something's wrong with my syntax here
+                    title: {
                         display: true,
                         text: 'Roll'
                     },
@@ -204,6 +212,28 @@ function normalizeDice (dice) {
     };
     
     return dice;
+}
+
+function sample (dice) {
+    // Given a non-normalized dice distribution, it returns a single random result from that distribution
+
+    const total = sum(dice);
+
+    // Pick a random number from 1 through total (inclusive) uniformly at random
+
+    const rand = Math.floor(Math.random() * total + 1);
+
+    // Return the index (i.e. roll) corresponding to the rand result
+
+    let partialSum = 0;
+
+    for (let i = 0; i < dice.length; i++) {
+        partialSum += dice[i];
+
+        if (partialSum >= rand) {
+            return i;
+        }
+    }
 }
 
 function sum (dice) {
