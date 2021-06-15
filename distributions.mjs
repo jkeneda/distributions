@@ -6,7 +6,7 @@
 
 // To-do: work on displaying averages (maybe std deviations) and multiple graphs simultaneously, and module behavior
 // make the graphing dynamic and handle negative shifts
-// improve on-hover labels and sampliing
+// improve on-hover labels and sampling
 
 function convolve () { // Takes any number of dice as arguments
     // Returns dice array corresponding to the independent sum of all arguments
