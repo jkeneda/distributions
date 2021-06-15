@@ -12,3 +12,4 @@ Gemfile
 Gemfile.lock
 jekyll-theme-cayman.gemspec
 LICENSE
+.vscode
