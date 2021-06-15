@@ -1,1 +1,14 @@
-cayman
+.github
+_layouts
+_sass
+_site
+.jekyll-cache
+assets
+docs
+script
+.rubocop.yml
+.travis.yml
+Gemfile
+Gemfile.lock
+jekyll-theme-cayman.gemspec
+LICENSE
