@@ -14,7 +14,7 @@ refreshButton.addEventListener('click', function () {updateChart(myChart);});
 const sampleButton = document.getElementById('sampleButton');
 sampleButton.addEventListener('click', function () {
     updateChart(myChart);
-    document.getElementById('log').innerHTML = "You rolled a " + sample(textToDice(document.getElementById('textBox').value));});
+    document.getElementById('log').innerHTML = log()});
 
 // Form submission event handling
 const form1 = document.getElementById('form1');
